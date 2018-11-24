@@ -9,14 +9,13 @@ def get_csv(filename):
         parameters = [0., 0.]
     return parameters
 
+def put_csv(filename, theta0, theta1):
+    f = open(filename, 'w')
+    f.write("theta0,theta1\n{},{}".format(theta0, theta1))
+    f.close()
+
 def get_prediction_fun(filename):
     parameters = get_csv(filename)
     theta0 = parameters[0]
     theta1 = parameters[1]
     return lambda x: theta0 + theta1 * x
-
-def cost(data, theta0, theta1):
-    m = data[0].size
-    h = lambda x: theta0 + np.multiply(theta1, x)
-    return sum(np.power(h(data[0]) - data[1], 2)) / (2 * m)
-    # return sum([(h(data[0][x]) - data[1][x]) ** 2 for x in range(m)]) / (2 * m)

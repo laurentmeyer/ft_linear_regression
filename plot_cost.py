@@ -1,32 +1,21 @@
 import matplotlib as mpl
 mpl.use('TkAgg')
-import matplotlib.pyplot as plt
 from mpl_toolkits.mplot3d import Axes3D
-import numpy as np
+import matplotlib.pyplot as plt
+from matplotlib import cm
+from matplotlib.ticker import LinearLocator, FormatStrFormatter
 import utils as utils
+import numpy as np
 from functools import partial
+
+fig = plt.figure()
+ax = fig.gca(projection='3d')
 
 data = utils.get_csv('data.csv')
 data = np.transpose(data)
 km = data[0]
 price = data[1]
 
-fig = plt.figure()
-fig.suptitle('Scatter plot')
-ax = plt.subplot(121)
-ax.set_aspect(1)
-plt.scatter(km, price, s=10)
-
-min_km = min(km)
-max_km = max(km)
-x = np.linspace(min_km, max_km, 100)
-f = utils.get_prediction_fun('parameters.csv')
-plt.plot(x, f(x), 'r')
-plt.xlabel('km')
-plt.ylabel('price')
-
-
-ax = fig.add_subplot(1, 2, 2, projection='3d')
 m = 40
 X = np.linspace(5000, 20000, num=m)
 Y = np.linspace(-0.1, 0.0, num=m)
